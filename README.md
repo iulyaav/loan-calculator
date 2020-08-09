@@ -1,4 +1,5 @@
-# loan-calculator
-Coding challenge
+# Load calculator
 
-Test commit from WSL
+For the purpose of this exercise, I've chosen to use a mono-repo just for the convenience of it. Usually, although there are some tangible benefits in using a monorepo, my preference is for a clear separation between concerns. Thus I would opt for multiple repositories for such a project.
+
+
