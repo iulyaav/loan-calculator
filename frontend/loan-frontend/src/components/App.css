@@ -1,0 +1,11 @@
+.app {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+
+.app-border {
+    margin-top: 50px;
+}
