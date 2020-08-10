@@ -9,7 +9,7 @@ from loan_backend.service.service import compute_monthly_repaiment
 
 class LoanRequestSerializer(serializers.Serializer):
     amount = serializers.IntegerField(required=True)
-    monthly_rate = serializers.DecimalField(required=False, max_digits=20, decimal_places=2)
+    monthly_rate = serializers.FloatField(required=False)
     payments = serializers.IntegerField(required=False)
 
 

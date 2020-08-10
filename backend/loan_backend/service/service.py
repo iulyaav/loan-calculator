@@ -44,4 +44,6 @@ def get_rate(interest=settings.INTEREST_RATE):
 
 
 def check_interest(amount, monthly_rate, payments):
-    return npf.rate(payments, monthly_rate, amount, 0) * 12
+    if monthly_rate > 0:
+        monthly_rate *= -1
+    return abs(round(npf.rate(payments, monthly_rate, amount, 0) * 12, 2))
