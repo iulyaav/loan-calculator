@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from loan_backend.service.exceptions import ValidationError
-from loan_backend.service.service import compute_monthly_repaiment
+from loan_backend.service.service import compute_loan_parameters
 
 
 class LoanRequestSerializer(serializers.Serializer):
@@ -13,7 +13,7 @@ class LoanRequestSerializer(serializers.Serializer):
     payments = serializers.IntegerField(required=False)
 
 
-class LoanCalculator(APIView):
+class LoanCalculatorView(APIView):
     def get(self, request, format=None):
         """
         Return a loan result based on parameters:
@@ -28,6 +28,6 @@ class LoanCalculator(APIView):
 
         serializer = LoanRequestSerializer(data=request.query_params)
         serializer.is_valid(raise_exception=True)
-        result = compute_monthly_repaiment(**serializer.data)
+        result = compute_loan_parameters(**serializer.data)
 
         return Response(result)
