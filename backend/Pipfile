@@ -12,6 +12,7 @@ pre-commit = "*"
 black = "==18.3a0"
 isort = "*"
 flake8 = "*"
+numpy-financial = "*"
 
 [requires]
 python_version = "3.8"

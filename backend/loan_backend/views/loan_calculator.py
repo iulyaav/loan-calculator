@@ -1,12 +1,19 @@
 from django.http import Http404
+from rest_framework import serializers
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from loan_backend.service.exceptions import ValidationError
-from loan_backend.service.service import compute_monthly_repaiment
+from loan_backend.service.service import compute_loan_parameters
 
 
-class LoanCompute(APIView):
+class LoanRequestSerializer(serializers.Serializer):
+    amount = serializers.IntegerField(required=True)
+    monthly_rate = serializers.FloatField(required=False)
+    payments = serializers.IntegerField(required=False)
+
+
+class LoanCalculatorView(APIView):
     def get(self, request, format=None):
         """
         Return a loan result based on parameters:
@@ -19,13 +26,8 @@ class LoanCompute(APIView):
         in the service module.
         """
 
-        amount = request.query_params.get("amount", None)
-        monthly_rate = request.query_params.get("monthly", None)
-        payments = request.query_params.get("payments", None)
-
-        if amount is None or amount == 0:
-            raise ValidationError("Amount is missing")
-
-        result = compute_monthly_repaiment(amount, monthly_rate, payments)
+        serializer = LoanRequestSerializer(data=request.query_params)
+        serializer.is_valid(raise_exception=True)
+        result = compute_loan_parameters(**serializer.data)
 
         return Response(result)
