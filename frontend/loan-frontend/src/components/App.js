@@ -11,21 +11,41 @@ class App extends React.Component {
         amount: 0,
         monthlyRate: 0.0,
         payments: 0,
-        interest: 1.0
+        interest: 5.5,
+        interestMsg: ''
     };
 
-    onInputChange = (value) => {
-        this.setState({amount: value});
+    sendQuery = async (queryParams) => {
+        const response = await axios.get('http://localhost:3001/loans', {
+            params: queryParams,
+        });
+        if (response.data[0]) {
+            this.setState({ 
+                amount: response.data[0].amount, 
+                monthlyRate: response.data[0].monthlyRate, 
+                payments: response.data[0].payments, 
+                interest: response.data[0].interest 
+            });
+            if (response.data[0].interestMsg) {
+                this.setState({interestMsg: response.data[0].interestMsg});
+            }
+        }
     }
 
-    onFormSubmit = async (amount) => {
-        const response = await axios.get('http://localhost:3001/loans', {
-            params: {
-                amount: amount
-            },
-        });
-        console.log(response);
-        this.setState({ amount: 10, monthlyRate: 5.5, payments: 2, interest: 1.5 });
+    onInputChange = (target, value) => {
+        this.setState({ [target]: value });
+    }
+
+    onFormSubmit = async () => {
+
+        const queryParams = query => (
+            {
+            ...query.amount && { amount: query.amount },
+            ...query.monthlyRate && { monthlyRate: query.monthlyRate },
+            ...query.payments && { payments: query.payments }
+          });
+        
+        this.sendQuery(queryParams(this.state));
     }
 
 
@@ -42,6 +62,7 @@ class App extends React.Component {
                         monthlyRate={this.state.monthlyRate}
                         payments={this.state.payments}
                         interest={this.state.interest}
+                        interestMsg={this.state.interestMsg}
                     />
                 </div>
             </div>

@@ -2,15 +2,21 @@
   { 
       "amount": 100,
       "payments": 24,
-      "monthly_rate": 4,
+      "monthlyRate": 4,
       "interest": 5.5
+  },
+  { 
+    "amount": 100,
+    "payments": 12,
+    "monthlyRate": 2,
+    "interest": 5.5
   },
   { 
       "amount": 1000,
       "payments": 12,
-      "monthly_rate": 44,
+      "monthlyRate": 44,
       "interest": 2,
-      "interest_msg": "This is bellow our interest rate"
+      "interestMsg": "This is ABOVE our interest rate"
   }
 ]
 }
