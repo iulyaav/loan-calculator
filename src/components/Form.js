@@ -40,6 +40,9 @@ class Form extends React.Component {
                 <div className="row row-button">
                     <input className="button-primary column" type="submit" value="Check loan"/>
                 </div>
+                <div className="row">
+                    {this.props.errorMsg && <p className="under-text">{this.props.errorMsg}</p>}
+                </div>
                 <hr/>
             </form>
         );

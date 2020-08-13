@@ -31,9 +31,9 @@ def compute_loan_parameters(amount=None, monthly_rate=None, payments=None):
         interest = get_interest(amount, monthly_rate, payments)
         loan["interest"] = interest
         if interest > INTEREST_RATE_PER_MONTH:
-            loan["interest_msg"] = "The interest is above our threshold"
+            loan["interest_msg"] = f"This interest is above our threshold ({INTEREST_RATE_PER_MONTH})"
         elif interest < INTEREST_RATE_PER_MONTH:
-            loan["interest_msg"] = "The interest is below our threshold"
+            loan["interest_msg"] = f"This interest is below our threshold ({INTEREST_RATE_PER_MONTH})"
     elif monthly_rate:
         loan["payments"] = get_number_of_payments(amount, monthly_rate)
     else:
@@ -49,7 +49,7 @@ def get_monthly_rate(amount, payments):
 
 def get_number_of_payments(amount, monthly_rate):
     """Get the number of months of the loan."""
-    return npf.nper(INTEREST_RATE_PER_MONTH, -monthly_rate, amount)
+    return npf.nper(INTEREST_RATE_PER_MONTH, -monthly_rate, amount).round()
 
 def get_interest(amount, monthly_rate, payments):
     """Return the interest rate.

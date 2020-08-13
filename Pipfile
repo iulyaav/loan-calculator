@@ -17,6 +17,7 @@ whitenoise = "*"
 gunicorn = "*"
 psycopg2-binary = "*"
 django-heroku = "*"
+django-cors-headers = "*"
 
 [requires]
 python_version = "3.8"

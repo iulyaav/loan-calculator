@@ -2,6 +2,7 @@ import './App.css';
 import React from 'react';
 
 import Form from './Form';
+import applyCaseMiddleware from 'axios-case-converter';
 import axios from 'axios';
 
 
@@ -12,24 +13,34 @@ class App extends React.Component {
         monthlyRate: 0.0,
         payments: 0,
         interest: 5.5,
-        interestMsg: ''
+        interestMsg: '',
+        errorMsg: ''
     };
 
     sendQuery = async (queryParams) => {
-        const response = await axios.get('http://localhost:3001/loans', {
+        this.setState({errorMsg: ''});
+        this.setState({interestMsg: ''});
+        const client = applyCaseMiddleware(axios.create());
+        const response = await client.get('http://localhost:8000/loan/', {
             params: queryParams,
-        });
-        if (response.data[0]) {
-            this.setState({ 
-                amount: response.data[0].amount, 
-                monthlyRate: response.data[0].monthlyRate, 
-                payments: response.data[0].payments, 
-                interest: response.data[0].interest 
-            });
-            if (response.data[0].interestMsg) {
-                this.setState({interestMsg: response.data[0].interestMsg});
+        })
+        .then( response =>  {
+            if (response.data) {
+                this.setState({ 
+                    amount: response.data.amount, 
+                    monthlyRate: response.data.monthlyRate, 
+                    payments: response.data.payments, 
+                    interest: response.data.interest 
+                });
+                if (response.data.interestMsg) {
+                    this.setState({interestMsg: response.data.interestMsg});
+                }
             }
-        }
+          })
+        .catch(error => {
+            this.setState({errorMsg: "There was some problem with your request. Try again later!"});
+        });
+        
     }
 
     onInputChange = (target, value) => {
@@ -63,6 +74,7 @@ class App extends React.Component {
                         payments={this.state.payments}
                         interest={this.state.interest}
                         interestMsg={this.state.interestMsg}
+                        errorMsg={this.state.errorMsg}
                     />
                 </div>
             </div>
