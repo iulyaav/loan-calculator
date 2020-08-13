@@ -6,6 +6,21 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
+django = "*"
+djangorestframework = "*"
+pre-commit = "*"
+black = "==18.3a0"
+isort = "*"
+flake8 = "*"
+numpy-financial = "*"
+whitenoise = "*"
+gunicorn = "*"
+psycopg2-binary = "*"
+django-heroku = "*"
+django-cors-headers = "*"
 
 [requires]
 python_version = "3.8"
+
+[pipenv]
+allow_prereleases = false
