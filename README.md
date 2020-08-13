@@ -3,6 +3,51 @@
 For the purpose of this exercise, I've chosen to use a mono-repo just for the convenience of it. Usually, although there are some tangible benefits in using a monorepo, my preference is for a clear separation between concerns. Thus I would opt for multiple repositories for such a project.
 
 
+## How to run the project
+
+### Running the frontend and backend together
+With this method we will be serving the frontend and backend from the same URI. A nice side-effect is that it removes any CORS overhead as well. To get the application going, assuming you have all the packages already installed (see more information about how to do this in the next section), just run:
+
+```
+$ npm build
+$ pipenv install
+$ pipenv shell
+$ python manage.py runserver
+```
+
+The website will be statically served from inside the `build` folder which will be created when running `npm build`. 
+
+### Running the frontend and backend separately
+To start the React app, you need to have `npm` running on your machine. Open two tabs, one for the mock API server and the other for the React app. In the first tab, you will need to first install all the packages and the start the app by running these commands in succession:
+```
+$ npm install
+$ npm start
+``` 
+
+The React App will be available at `http://localhost:3000/`. Right now, there isn't any mock server to make up for the call to the backend, so you will have to separately start the backend server as well. To do this you need to have `pipenv` installed on your machine. You can easily accomplish this by running the pip install command inside a terminal. After that install the requirements and activate the shell.
+
+```
+$ pip install pipenv
+
+$ pipenv install
+
+$ pipenv shell
+``` 
+
+The just start up the server by running
+
+```
+$ python manage.py runserver
+```
+
+The server will be accessible at `localhost` on port `8000`. 
+After that you can run queries either by using the `curl` command inside a terminal, or a tool such as `Postman`.
+
+```
+$ curl http://localhost:8000/?amount=12&payments=2
+```
+
+
 ## Backend
 
 The Loan Calculator API is a small server with a single endpoint that helps in making queries about loan terms.
@@ -18,35 +63,6 @@ The API endpoint can be accessed without authentication for the time being (the 
 - amount (int) - the total sum of the loan
 - payments (int) - the tenure of the loan measured in number of months
 - monthly_rate (float) - the monthly amount of money to pay back
-```
-
-### How to run it
-
-To start the server, you need to have `pipenv` installed on your machine. You can easily accomplish this by running the pip install command inside a terminal.
-
-```
-$ pip install pipenv
-``` 
-
-Then assuming you are inside the `backend` folder, install the project requirements and activate the shell.
-
-```
-$ pipenv install
-
-$ pipenv shell
-```
-
-The just start up the server by running
-
-```
-$ pipenv run python manage.py runserver
-```
-
-The server will be accessible at `localhost` on port `8000`. 
-After that you can run queries either by using the `curl` command inside a terminal, or a tool such as `Postman`.
-
-```
-$ curl http://localhost:8000/?amount=12&payments=2
 ```
 
 ### Questions to ponder
@@ -68,26 +84,9 @@ This, together with the question about the third party calls from the coding cha
 The frontend part is a small React app that has a form and makes call to an API to gather information about the loan terms (amount, tenure, monthly rate and interest).
 
 
-### How to run the project
-
-To start the app, you need to have `npm` running on your machine. Open two tabs, one for the mock API server and the other for the React app. In the first tab, you will need to first install all the packages and the start the app by running these commands in succession:
-```
-$ npm install
-$ npm start
-```
-In the other tab, start the mock server by running 
-
-```
-$ json-server -p 3001 loans.json
-```
-inside the project folder (`loan_frontend`). 
-
-The React App will be available at `http://localhost:3000/`, and the mock API will be sending out information from `http://localhost:3001`.
-
-
 ### How to use the application
 
-This application is made up of a simple form with 4 inputs, out of which 3 are active and one is disabled. As it implemented right now, it makes calls to the API when pressing on the "Check interest" button. To simulate the cases when the app calculates the terms and the one when it checks if the interest is above or below a certain threshold, I have mocked two reponse calls (see more in `loan_frontend/loans.json`).
+This application is made up of a simple form with 4 inputs, out of which 3 are active and one is disabled. As it implemented right now, it makes calls to the API when pressing on the "Check interest" button.
 
 ### Things to improve
 This application is far from perfect. Here are some of the things that I am considering improving:
