@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AnonymousUser, User
 from django.test import RequestFactory, TestCase
 
-from loan_backend.views.loan_calculator import LoanCalculatorView
+from backend.views.loan_calculator import LoanCalculatorView
 
 class LoanCalculatorViewTest(TestCase):
     def setUp(self):

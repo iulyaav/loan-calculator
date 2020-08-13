@@ -3,8 +3,8 @@ from rest_framework import serializers
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from loan_backend.service.exceptions import ValidationError
-from loan_backend.service.service import compute_loan_parameters
+from backend.service.exceptions import ValidationError
+from backend.service.service import compute_loan_parameters
 
 
 class LoanRequestSerializer(serializers.Serializer):

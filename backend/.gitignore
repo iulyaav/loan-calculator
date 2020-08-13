@@ -1,6 +1,0 @@
-# DB
-db.sqlite*
-
-# Virtual envs
-env/
-venv/

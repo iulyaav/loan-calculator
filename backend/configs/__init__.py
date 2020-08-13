@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class LoanAppConfig(AppConfig):
-    name = "loan_backend"
+    name = "backend"
     verbose_name = "Loan Calculator API"

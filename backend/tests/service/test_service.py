@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from loan_backend.service import service, exceptions
+from backend.service import service, exceptions
 
 class ServiceTestCase(TestCase):
 

@@ -1,7 +1,7 @@
 import numpy_financial as npf
 from django.conf import settings
 
-from loan_backend.service.exceptions import ValidationError
+from backend.service.exceptions import ValidationError
 
 INTEREST_RATE_PER_MONTH = settings.INTEREST_RATE / 12
 

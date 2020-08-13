@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 
-from loan_backend.views.loan_calculator import LoanCalculatorView
+from backend.views.loan_calculator import LoanCalculatorView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
